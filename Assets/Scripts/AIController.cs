@@ -12,6 +12,8 @@ public class AIController : MonoBehaviour
     public GameObject playerChaseTarget;
     public bool isOnPatrol;
     public bool isOnChase;
+    public float patrolSpeed = 2f;
+    public float chaseSpeed = 4f;
 
     private void Start()
     {
@@ -51,6 +53,7 @@ public class AIController : MonoBehaviour
     {
         target = waypoints[waypointIndex].position;
         agent.SetDestination(target);
+        agent.speed = patrolSpeed;
     }
 
     void IterateWaypointIndex()
@@ -70,5 +73,6 @@ public class AIController : MonoBehaviour
         }
 
         agent.SetDestination(playerChaseTarget.transform.position);
+        agent.speed = chaseSpeed;
     }
 }
