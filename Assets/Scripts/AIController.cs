@@ -15,11 +15,15 @@ public class AIController : MonoBehaviour
     public float patrolSpeed = 2f;
     public float chaseSpeed = 4f;
 
+    private Animator anim;
+    public GameObject DeadPanel;
+
     private void Start()
     {
         isOnPatrol = true;
         isOnChase = false;
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
         UpdateDestination();
     }
 
@@ -54,6 +58,8 @@ public class AIController : MonoBehaviour
         target = waypoints[waypointIndex].position;
         agent.SetDestination(target);
         agent.speed = patrolSpeed;
+        anim.SetBool("isIdle", false);
+        anim.SetBool("isWalk", true);
     }
 
     void IterateWaypointIndex()
@@ -69,10 +75,21 @@ public class AIController : MonoBehaviour
     {
         if (!isOnChase)
         {
+            anim.SetBool("isWalk", true);
+            anim.SetBool("isChase", false);
             return;
         }
 
         agent.SetDestination(playerChaseTarget.transform.position);
         agent.speed = chaseSpeed;
+        anim.SetBool("isWalk", false);
+        anim.SetBool("isChase", true);
+    }
+
+    public void stopChaseOnLook()
+    {
+        anim.SetBool("isIdle", true);
+        anim.SetBool("isWalk", false);
+        anim.SetBool("isChase", false);
     }
 }

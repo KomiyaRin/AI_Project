@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     private bool isGrounded;
+    public GameObject pausePanel;
+    public GameObject deadPanel;
 
     private void Update()
     {
@@ -42,5 +44,32 @@ public class PlayerMovement : MonoBehaviour
         }
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        /*pauseOnClick();*/
+    }
+
+    /*public void pauseOnClick()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.Confined;
+            pausePanel.SetActive(true);
+        }
+        *//*        else if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    Time.timeScale = 1f;
+                    pausePanel.SetActive(false);
+                }*//* 
+    }*/
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Time.timeScale = 0f;
+            deadPanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.Confined;
+        }
     }
 }

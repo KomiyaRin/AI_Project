@@ -18,6 +18,8 @@ public class PlayerRayCast : MonoBehaviour
             {
                 AIController stopChase = FindObjectOfType<AIController>();
                 stopChase.chaseSpeed = 0f;
+                AIController lookToStop = FindAnyObjectByType<AIController>();
+                lookToStop.stopChaseOnLook();
             }
             else
             {
