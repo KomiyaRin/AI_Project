@@ -28,7 +28,7 @@ public class NewBehaviourScript : MonoBehaviour
     public float jumpscareTime;
 
     //The scene you load into after dying
-    public string sceneAfterDeath;
+    public string GameScene;
 
     //The Update() void, stuff occurs every frame in this void
     void Update()
@@ -61,28 +61,20 @@ public class NewBehaviourScript : MonoBehaviour
                 StartCoroutine(killPlayer()); //The killPlayer() coroutine will start
             }
         }
+
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        /*GetCamera();*/
     }
     IEnumerator killPlayer()
     {
         yield return new WaitForSeconds(jumpscareTime); //After the amount of seconds determined by the jumpscareTime,
-        SceneManager.LoadScene(sceneAfterDeath); //The scene after death will load
+        SceneManager.LoadScene(GameScene); //The scene after death will load
     }
 
-    public void GetCamera()
+    /*public void GetCamera()
     {
-        playerCam = GetComponent<PlayerMovement>();
+      GameObject playerCam = GameObject.FindGameObjectWithTag("PlayerCamera");
 
-
-
-
-
-
-
-
-
-
-
-
-    }
+    }*/
 
 }
